@@ -149,7 +149,7 @@ services:
       # Allow explicit env var override for tests
       - SMTP_HOST=${SMTP_HOST}
     build:
-      context: ./backend
+      context: ./core
       dockerfile: backend.dockerfile
       args:
         INSTALL_DEV: ${INSTALL_DEV-false}
@@ -173,7 +173,7 @@ services:
       # Allow explicit env var override for tests
       - SMTP_HOST=${SMTP_HOST?Variable not set}
     build:
-      context: ./backend
+      context: ./core
       dockerfile: celeryworker.dockerfile
       args:
         INSTALL_DEV: ${INSTALL_DEV-false}
@@ -190,7 +190,14 @@ services:
   #       - traefik.constraint-label-stack=${TRAEFIK_TAG?Variable not set}
   #       - traefik.http.routers.${STACK_NAME?Variable not set}-frontend-http.rule=PathPrefix(`/`)
   #       - traefik.http.services.${STACK_NAME?Variable not set}-frontend.loadbalancer.server.port=80
-
+  maildev: # used mainly for dev tests
+      image: appwrite/mailcatcher:1.0.0
+      container_name: appwrite-mailcatcher
+      ports:
+        - '9503:1080'
+        - '1025:1025'
+      networks:
+        - traefik-public
 volumes:
   app-db-data:
 
