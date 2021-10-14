@@ -1,4 +1,20 @@
-# pb_runner
+# ProcessBud - Core
+
+Removed Following :
+ - PgAdmin
+ - Flower
+ - Frontend
+
+Added :
+ - Mailcatch - for SMTP Testing
+ - How to run :
+
+`docker-compose -f docker-compose.yml -f docker-compose.override.yml up`
+
+For above development run , visit on port `8099`
+
+------- 
+Old
 
 ## Backend Requirements
 
